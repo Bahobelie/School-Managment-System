@@ -59,7 +59,6 @@ const ProfileSection = () => {
     }
     setOpen(false);
   };
-
   const handleListItemClick = (event, index, route = '') => {
     setSelectedIndex(index);
     handleClose(event);
