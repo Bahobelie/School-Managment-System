@@ -12,40 +12,43 @@ import {
   TableCell,
   TableBody, Typography
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 // deleted Test Json
 const studentData = [
-  { id: 1, name: 'John Doe', class: 'Class 1', section: 'Section A' },
-  { id: 111, name: 'John Doe', class: 'Class 1', section: 'Section A' },
-  { id: 11, name: 'John Doe', class: 'Class 1', section: 'Section A' },
-  { id: 1111, name: 'John Doe', class: 'Class 1', section: 'Section A' },
-  { id: 111, name: 'John Doe', class: 'Class 1', section: 'Section A' },
-  { id: 2, name: 'Jane Smith', class: 'Class 2', section: 'Section B' },
-  { id: 3, name: 'Alice Johnson', class: 'Class 1', section: 'Section A' },
-  { id: 4, name: 'Bob Brown', class: 'Class 3', section: 'Section C' },
-  { id: 5, name: 'Emma Wilson', class: 'Class 2', section: 'Section B' },
+  { id: 1, name: 'John Doe', class: 'Class 1', section: 'Section A', branch: 'Addis Ababa Aware Branch' },
+  { id: 111, name: 'John Doe', class: 'Class 1', section: 'Section A', branch: 'Addis Ababa Lebu Branch' },
+  { id: 11, name: 'John Doe', class: 'Class 1', section: 'Section A', branch: 'Addis Ababa Weyra Branch' },
+  { id: 1111, name: 'John Doe', class: 'Class 1', section: 'Section A', branch: 'Addis Ababa Weyra Branch' },
+  { id: 111, name: 'John Doe', class: 'Class 1', section: 'Section A', branch: 'Addis Ababa Aware Branch' },
+  { id: 2, name: 'Jane Smith', class: 'Class 2', section: 'Section B', branch: 'Branch 1' },
+  { id: 3, name: 'Alice Johnson', class: 'Class 1', section: 'Section A', branch: 'Branch 2' },
+  { id: 4, name: 'Bob Brown', class: 'Class 3', section: 'Section C', branch: 'Branch 3' },
+  { id: 5, name: 'Emma Wilson', class: 'Class 2', section: 'Section B', branch: 'Branch 4' },
 ];
+
 
 const StudentDetail = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedSection, setSelectedSection] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-
+  const selectedBranch = useSelector((state)=>state.customization.selectedBranch);
   const handleSearch = () => {
     const filtered = studentData.filter(student =>
       student.name.toLowerCase().includes(searchKeyword.toLowerCase()) &&
-      (selectedClass === '' || student.class.toLowerCase() === selectedClass.toLowerCase()) &&
-      (selectedSection === '' || student.section.toLowerCase() === selectedSection.toLowerCase())
+      (selectedClass === null || student.class.toLowerCase() === selectedClass.toLowerCase()) &&
+      (selectedSection === null || student.section.toLowerCase() === selectedSection.toLowerCase()) &&
+      student.branch.toLowerCase() === selectedBranch.toLowerCase()
     );
     setFilteredData(filtered);
   };
-
+console.log(selectedBranch.toLowerCase());
   return (
     <div>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs={4}>
-          <Typography variant={'caption'}>Class*</Typography>
+          <Typography sx={{marginBottom:1}} variant={'caption'}>Class*</Typography>
           <FormControl fullWidth>
             <Select value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)}>
               <MenuItem value="">All</MenuItem>
@@ -58,7 +61,7 @@ const StudentDetail = () => {
           </FormControl>
         </Grid>
         <Grid item xs={4}>
-          Section
+          <Typography sx={{marginBottom:1}} variant={'caption'}>Section*</Typography>
           <FormControl fullWidth>
             <Select value={selectedSection} onChange={(e) => setSelectedSection(e.target.value)}>
               <MenuItem value="">All</MenuItem>
@@ -69,7 +72,7 @@ const StudentDetail = () => {
           </FormControl>
         </Grid>
         <Grid item xs={3}>
-          Search BY KeyWord
+          <Typography sx={{marginBottom:1}} variant={'caption'}>Search BY KeyWord*</Typography>
           <TextField fullWidth label="Search" value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} />
         </Grid>
         <Grid item xs={1}>
@@ -87,6 +90,7 @@ const StudentDetail = () => {
               <TableCell>Name</TableCell>
               <TableCell>Class</TableCell>
               <TableCell>Section</TableCell>
+              <TableCell>Beranch</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -96,6 +100,7 @@ const StudentDetail = () => {
                 <TableCell>{student.name}</TableCell>
                 <TableCell>{student.class}</TableCell>
                 <TableCell>{student.section}</TableCell>
+                <TableCell>{student.branch}</TableCell>
               </TableRow>
             ))}
           </TableBody>
