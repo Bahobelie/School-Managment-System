@@ -28,7 +28,7 @@ const pages = {
           title: 'StudentDetail',
           type: 'item',
           breadcrumbs: false,
-          url: '/utils/util-color',
+          url: '/StudentInformation/student-Detail',
           roles: ['parent','admin'],
         },
         {

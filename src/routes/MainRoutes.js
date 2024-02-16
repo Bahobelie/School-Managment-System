@@ -14,7 +14,7 @@ const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
 const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
-
+const StudentDetail = Loadable(lazy(() => import('views/StudentInformation/studentDetail')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 // ==============================|| MAIN ROUTING ||============================== //
@@ -30,6 +30,15 @@ const MainRoutes = {
           path: 'default',
           element: <DashboardDefault />
         },
+      ]
+    },
+    {
+      path: 'StudentInformation',
+      children: [
+        {
+          path: 'student-Detail',
+          element: <StudentDetail />
+        }
       ]
     },
     {
