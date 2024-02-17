@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+// import DataGridPremiumDemo from '../views/StudentInformation/TestGrid';
 
 
 // dashboard routing
@@ -15,6 +16,7 @@ const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 const StudentDetail = Loadable(lazy(() => import('views/StudentInformation/studentDetail')));
+// const DataGrid = Loadable(lazy(() => import('views/StudentInformation/TestGrid')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 // ==============================|| MAIN ROUTING ||============================== //
