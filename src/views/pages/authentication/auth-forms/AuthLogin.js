@@ -42,7 +42,7 @@ const FirebaseLogin = ({ ...others }) => {
     try {
       const { email, password, role } = values;
 
-      if (email === 'info@codedthemes.com' && password === '123456') {
+      if (email === 'info@codedthemes.com' && password === '170506') {
         const user = {
           email: email,
           role: role,
@@ -71,7 +71,7 @@ const FirebaseLogin = ({ ...others }) => {
       <Formik
         initialValues={{
           email: 'info@codedthemes.com',
-          password: '123456',
+          password: '170506',
           submit: null,
           role: 'admin',
         }}

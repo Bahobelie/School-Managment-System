@@ -7,7 +7,7 @@ import {
   Grid,
   Button,
   Typography,
-  Menu,
+  Menu
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import {
@@ -22,9 +22,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useTheme } from '@mui/material/styles';
-import { studentData } from './StudentJson';
-
-
+import { studentData } from './MokJson/constantJosn';
+import { useNavigate } from 'react-router-dom';
+import NotFound from '../utilities/NotFound';
 const getSelectedRowsToExport = ({ apiRef }: GridPrintGetRowsToExportParams): GridRowId[] => {
   const selectedRowIds = selectedGridRowsSelector(apiRef);
   if (selectedRowIds.size > 0) {
@@ -33,7 +33,7 @@ const getSelectedRowsToExport = ({ apiRef }: GridPrintGetRowsToExportParams): Gr
   return gridFilteredSortedRowIdsSelector(apiRef);
 };
 
-const StudentDetail = () => {
+const StudentLIst = ({additionalFilters}) => {
   const theme=useTheme();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedClass, setSelectedClass] = useState('');
@@ -41,26 +41,74 @@ const StudentDetail = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const selectedBranch = useSelector((state) => state.customization.selectedBranch);
-
+ const navigtor=useNavigate();
   const handleSearch = () => {
-    const filtered = studentData.filter(student =>
-      student.name.toLowerCase().includes(searchKeyword.toLowerCase()) &&
-      (selectedClass === '' || student.class.toLowerCase() === selectedClass.toLowerCase()) &&
-      (selectedSection === ''|| student.section.toLowerCase() === selectedSection.toLowerCase()) &&
-      student.branch.toLowerCase() === selectedBranch.toLowerCase()
-    );
+    const filtered = studentData.filter(student => {
+      let passFilters = true;
+      // Apply the default filters
+      passFilters = passFilters && student.name.toLowerCase().includes(searchKeyword.toLowerCase());
+      passFilters = passFilters && (selectedClass === '' || student.class.toLowerCase() === selectedClass.toLowerCase());
+      passFilters = passFilters && (selectedSection === '' || student.section.toLowerCase() === selectedSection.toLowerCase());
+      passFilters = passFilters && student.branch.toLowerCase() === selectedBranch.toLowerCase();
+
+      // Apply additional filters if provided
+      if (additionalFilters) {
+        Object.keys(additionalFilters).forEach(filterKey => {
+          passFilters = passFilters && student[filterKey] === additionalFilters[filterKey];
+        });
+      }
+
+      return passFilters;
+    });
+
     setFilteredData(filtered);
   };
 
+  const handelNameCellClick=(student)=>{
+    navigtor(`/StudentInformation/student-Detail/${student.id}`,{state:{student}});
+   console.log(student);
+
+  }
+const renderNameCell=(params)=>{
+  const student = params.row;
+  const handleClick = () => {
+   handelNameCellClick(student);
+  };
+  return (
+    <Button
+      onClick={handleClick}
+      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+    >
+      <img
+        src={params.row.avatar}
+        alt={params.row.name}
+        style={{ width: 34, height: 34, marginRight: 8, borderRadius: '50%' }}
+      />
+      {params.value}
+    </Button>
+  );
+};
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const CustomToolBar = () => (
+    <div
+      style={{
+        position: 'relative',
+        top: 0,
+        right: 0,
+        marginLeft:'74rem',
+        marginBottom:'1rem',
+        borderTop: '1px solid #ddd',
+        pointerEvents: 'auto',
+      }}
+    >
+      <GridToolbar />
+    </div>
+  );
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
-
   return (
     <div>
       <Grid container spacing={2} alignItems="center">
@@ -112,9 +160,8 @@ const StudentDetail = () => {
         </Grid>
       </Grid>
 
-      {filteredData.length > 0 && (
-        <div style={{ marginTop: 20, backgroundColor: '#f8f9f1' }}>
-          <Typography variant='h4' sx={{marginBottom:4}}>Students List</Typography>
+      {filteredData.length > 0?  (
+        <div style={{ marginTop: 25, backgroundColor: 'white' ,padding:15}}>
           <DataGrid
             rows={filteredData}
             columns={[
@@ -123,20 +170,34 @@ const StudentDetail = () => {
                 field: 'name',
                 headerName: 'Name',
                 width: 200,
-                renderCell: (params) => (
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <img
-                      src={params.row.avatar}
-                      alt={params.row.name}
-                      style={{ width: 34, height: 34, marginRight: 8, borderRadius: '50%' }}
-                    />
-                    {params.value}
-                  </div>
-                ),
+                renderCell: renderNameCell,
               },
               { field: 'class', headerName: 'Class', width: 120 },
+              { field: 'age', headerName: 'Age', width: 150 },
+              { field: 'gender', headerName: 'Gender', width: 150 },
+              { field: 'email', headerName: 'Email', width: 150 },
+              { field: 'phone', headerName: 'Phone', width: 150 },
+              { field: 'FatherName', headerName: 'ParentName', width: 150 },
+              { field: 'FatherEmail', headerName: 'ParentEmail', width: 150 },
+              { field: 'FatherPhone', headerName: 'ParentPhone', width: 150 },
               { field: 'section', headerName: 'Section', width: 120 },
               { field: 'branch', headerName: 'Branch', width: 150 },
+              { field: 'status', headerName: 'Status', width: 150,
+                renderCell:(params)=>(<div> {params.value==='Active'?
+                  (<Button variant='text' style={{ backgroundColor: 'rgba(0, 167, 111, 0.16)',
+                    padding: '0px 6px',
+                    fontSize:' 0.75rem',
+                    fontWeight: '700',
+                    color: 'rgb(0, 120, 103)' }}>
+                  {params.value}
+                </Button>):((<Button variant="text" style={{ backgroundColor: 'rgba(255, 86, 48, 0.16)',
+                      padding: '0px 6px',
+                      fontSize:' 0.75rem',
+                      fontWeight: '700',
+                      color: 'rgb(183, 29, 24)' }}>
+                    {params.value}
+                  </Button>)
+                  )}</div>) },
               {
                 field: 'actions',
                 headerName: 'Actions',
@@ -167,16 +228,17 @@ const StudentDetail = () => {
               },
             ]}
             checkboxSelection
+            disableRowSelectionOnClick
             loading={false}
-            slots={{ toolbar: GridToolbar }}
+            slots={{toolbar:CustomToolBar}}
             slotProps={{
               toolbar: { printOptions: { getRowsToExport: getSelectedRowsToExport } },
             }}
           />
         </div>
-      )}
+      ):(<NotFound/>)}
     </div>
   );
 };
 
-export default StudentDetail;
+export default StudentLIst;

@@ -1,10 +1,12 @@
 // assets
 import { IconKey } from '@tabler/icons-react';
 import { IconUsers }  from '@tabler/icons-react';
+import {IconReport} from '@tabler/icons-react';
 // constant
 const icons = {
   IconKey,
-  IconUsers
+  IconUsers,
+  IconReport
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
@@ -28,43 +30,97 @@ const pages = {
           title: 'StudentDetail',
           type: 'item',
           breadcrumbs: false,
-          url: '/StudentInformation/student-Detail',
+          url: '/StudentInformation/student-List',
           roles: ['parent','admin'],
         },
         {
           id: 'Student Admission',
           title: 'Student Admission',
           type: 'item',
+          url: '/StudentInformation/admission',
           roles: ['admin','parent'],
-        },
-        {
-          id: 'Online Admission',
-          title: 'online Admission',
-          type: 'item',
-          roles: [],
         },
         {
           id: 'Disable Students',
           title: 'Disable Students',
           type: 'item',
-          target: true,
+          url: '/StudentInformation/dis_able-Student',
           roles:['admin']
         },
         {
           id: 'Multi Class Student',
           title: 'Multi Class Student',
           type: 'item',
-          target: true
+          url: '/StudentInformation/mulit-class-Student',
+          roles: [],
         },
         {
           id: 'Student Category',
           title: 'Student Category',
           type: 'item',
-          target: true
+          url: '/StudentInformation/student-category',
+          roles: ['admin']
         },
-
       ]
     },
+    {
+      id: 'Student Report',
+      title: 'Report',
+      type: 'collapse',
+      icon: icons.IconReport,
+      roles: ['admin','parent'],
+      children: [
+        {
+          id: 'Student Information',
+          title: 'Student Information',
+          type: 'item',
+          url: '/Report/student-Info',
+          roles: ['parent','admin'],
+        },
+        {
+          id: 'Finance',
+          title: 'Finance',
+          type: 'item',
+          url: '/404-List',
+          roles: ['parent','admin'],
+        },
+        {
+          id: 'Attendance',
+          title: 'Attendance',
+          type: 'item',
+          url: '/404-List',
+          roles: ['parent','admin'],
+        },
+        {
+          id: 'Examination',
+          title: 'Examination',
+          type: 'item',
+          url: '/404-List',
+          roles: ['parent','admin'],
+        },
+        {
+          id: 'LessonPlan',
+          title: 'LessonPlan',
+          type: 'item',
+          url: '/404-List',
+          roles: ['parent','admin'],
+        },
+        {
+          id: 'Library',
+          title: 'Library',
+          type: 'item',
+          url: '/404-List',
+          roles: ['parent','admin'],
+        },
+        {
+          id: 'Transport',
+          title: 'Transport',
+          type: 'item',
+          url: '/404-List',
+          roles: ['parent','admin'],
+        },
+      ]
+    }
   ]
 };
 
