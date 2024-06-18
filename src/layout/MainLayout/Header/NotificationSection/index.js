@@ -118,7 +118,7 @@ const NotificationSection = () => {
             onClick={handleToggle}
             color="inherit"
           >
-              <IconBell stroke={1.9} size="1.3rem" />
+            <IconBell stroke={1.9} size="1.3rem" />
           </Avatar>
         </ButtonBase>
       </Box>

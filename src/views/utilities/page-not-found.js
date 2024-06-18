@@ -2,12 +2,29 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-
-// ----------------------------------------------------------------------
+import image from '../../assets/images/auth/4o4.png';
+import LogoSection from '../../layout/MainLayout/LogoSection/';
+// ========================================= 404 ================================//
 
 export default function NotFoundView() {
+  const renderHeader = (
+    <Box
+      component="header"
+      sx={{
+        top: 0,
+        left: 0,
+        width: 1,
+        lineHeight: 0,
+        position: 'fixed',
+        p: (theme) => ({ xs: theme.spacing(3, 3, 0), sm: theme.spacing(5, 5, 0) }),
+      }}
+    >
+     <LogoSection/>
+    </Box>
+  );
   return (
     <>
+      {renderHeader}
       <Container>
         <Box
           sx={{
@@ -33,7 +50,7 @@ export default function NotFoundView() {
 
           <Box
             component="img"
-            src="/assets/illustrations/illustration_404.svg"
+            src={image}
             sx={{
               mx: 'auto',
               height: 260,
@@ -41,7 +58,7 @@ export default function NotFoundView() {
             }}
           />
 
-          <Button href="/" size="large" variant="contained">
+          <Button href="/pages/login" size="large" variant="contained">
             Go to Home
           </Button>
         </Box>

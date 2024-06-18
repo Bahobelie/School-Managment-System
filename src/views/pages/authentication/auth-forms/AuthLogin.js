@@ -25,12 +25,13 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { loginSuccess } from '../../../../store/constant';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const FirebaseLogin = ({ ...others }) => {
   const theme = useTheme();
   const [checked, setChecked] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-
+  const navigation = useNavigate();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -38,24 +39,23 @@ const FirebaseLogin = ({ ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const handleSubmit = (values,{setSubmitting }) => {
+  const handleSubmit = (values, { setSubmitting }) => {
     try {
       const { email, password, role } = values;
 
       if (email === 'info@codedthemes.com' && password === '170506') {
         const user = {
           email: email,
-          role: role,
+          role: role
         };
         dispatch(loginSuccess(user));
-      }
-      else {
+        navigation('/dashboard/default')
+      } else {
         toast.success('Invalid username or password');
       }
     } catch (error) {
       console.error(error);
-    }
-    finally {
+    } finally {
       setSubmitting(false);
     }
   };
@@ -73,11 +73,11 @@ const FirebaseLogin = ({ ...others }) => {
           email: 'info@codedthemes.com',
           password: '170506',
           submit: null,
-          role: 'admin',
+          role: 'admin'
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required'),
+          password: Yup.string().max(255).required('Password is required')
         })}
         onSubmit={handleSubmit}
       >

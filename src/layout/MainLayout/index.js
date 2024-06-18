@@ -62,6 +62,7 @@ const MainLayout = () => {
   const handleLeftDrawerToggle = () => {
     dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
   };
+  // handel Refresh of window
 
   return (
     <Box sx={{ display: 'flex' }}>

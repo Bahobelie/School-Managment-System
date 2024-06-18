@@ -9,8 +9,8 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
-
+// import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import {IconUsers} from '@tabler/icons-react'
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
@@ -41,7 +41,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME DARK CARD ||============================== //
 
-const TotalIncomeDarkCard = ({ isLoading }) => {
+const TotalStafDarkCard = ({ isLoading,ReportName,Totale }) => {
   const theme = useTheme();
 
   return (
@@ -63,7 +63,7 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                       color: '#fff'
                     }}
                   >
-                    <TableChartOutlinedIcon fontSize="inherit" />
+                    <IconUsers fontSize="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -74,12 +74,12 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                   }}
                   primary={
                     <Typography variant="h4" sx={{ color: '#fff' }}>
-                      $203k
+                      {Totale!=null?Totale: 2500 }
                     </Typography>
                   }
                   secondary={
                     <Typography variant="subtitle2" sx={{ color: 'primary.light', mt: 0.25 }}>
-                      Total Income
+                      {ReportName != null ? `Total Staff ${ReportName}` : 'Total Staff'}
                     </Typography>
                   }
                 />
@@ -92,8 +92,8 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
   );
 };
 
-TotalIncomeDarkCard.propTypes = {
+TotalStafDarkCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default TotalIncomeDarkCard;
+export default TotalStafDarkCard;

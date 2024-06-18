@@ -51,7 +51,7 @@ const ProfileSection = () => {
   const anchorRef = useRef(null);
   const handleLogout =  () => {
     dispatch(logout());
-    window.location.href='/dashboard/default';
+    window.location.href='/pages/login';
   };
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {

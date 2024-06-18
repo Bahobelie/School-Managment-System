@@ -23,7 +23,7 @@ const DisAbleStudent = Loadable(lazy(() => import('views/StudentInformation/Disa
 const MultiClassStudent = Loadable(lazy(() => import('views/StudentInformation/MultiClassStudent')));
 const StudentCategory = Loadable(lazy(() => import('views/StudentInformation/StudentCategory')));
 const Page404  = Loadable(lazy(() => import('views/utilities/page-not-found')));
-const StudentInfo_Report = Loadable(lazy(() => import('views/StudentInformation/ReportView/StudentInfromationReport')));
+const StudentInfo_Report = Loadable(lazy(() => import('views/StudentInformation/ReportView/StudentInfo/StudentInfromationReport')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 // ==============================|| MAIN ROUTING ||============================== //
@@ -135,6 +135,10 @@ const MainRoutes = {
     },
     {
       path: '404',
+      element: <Page404 />,
+    },
+    {
+      path: '*',
       element: <Page404 />,
     },
   ],

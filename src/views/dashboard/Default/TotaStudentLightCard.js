@@ -9,7 +9,8 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+// import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+import { IconUserCheck }  from '@tabler/icons-react';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -39,7 +40,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const TotalIncomeLightCard = ({ isLoading }) => {
+const TotaStudentLightCard = ({ isLoading,ReportName,Totale }) => {
   const theme = useTheme();
 
   return (
@@ -61,7 +62,7 @@ const TotalIncomeLightCard = ({ isLoading }) => {
                       color: theme.palette.warning.dark
                     }}
                   >
-                    <StorefrontTwoToneIcon fontSize="inherit" />
+                    <IconUserCheck fontSize="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -70,7 +71,7 @@ const TotalIncomeLightCard = ({ isLoading }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">$203k</Typography>}
+                  primary={<Typography variant="h4">{Totale!=null?Totale:1500}</Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"
@@ -79,7 +80,7 @@ const TotalIncomeLightCard = ({ isLoading }) => {
                         mt: 0.5
                       }}
                     >
-                      Total Income
+                      {ReportName!=null?`Totale Student ${ReportName}`:'Total Student'}
                     </Typography>
                   }
                 />
@@ -92,8 +93,8 @@ const TotalIncomeLightCard = ({ isLoading }) => {
   );
 };
 
-TotalIncomeLightCard.propTypes = {
+TotaStudentLightCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default TotalIncomeLightCard;
+export default TotaStudentLightCard;

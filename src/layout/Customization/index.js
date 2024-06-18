@@ -101,13 +101,11 @@ const Customization = () => {
           sx={{
             borderRadius: 0,
             borderTopLeftRadius: '50%',
-            borderBottomLeftRadius: '50%',
-            borderTopRightRadius: '50%',
-            borderBottomRightRadius: '4px',
+            borderTopRightRadius:'50%',
+            borderBottomLeftRadius:'50%',
             top: '25%',
             position: 'fixed',
-            right: 10,
-            zIndex: theme.zIndex.speedDial
+            right: 10
           }}
         >
           <AnimateButton type="rotate">
